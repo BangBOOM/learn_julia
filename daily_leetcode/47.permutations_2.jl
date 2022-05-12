@@ -20,4 +20,5 @@ end
 
 @testset "47.permutations_2.jl" begin
     @test permute_unique([1,1,2]) == [[1,1,2],[1,2,1],[2,1,1]]
+    @test permute_unique([1,2,3]) == [[1,2,3],[1,3,2],[2,1,3],[2,3,1],[3,2,1],[3,1,2]]
 end
