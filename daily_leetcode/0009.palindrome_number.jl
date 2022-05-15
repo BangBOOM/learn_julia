@@ -15,7 +15,7 @@ function is_palindrome(x::Int)::Bool
     x_rev == x
 end
 
-@testset "9.palindrome-number.jl" begin
+@testset "0009.palindrome-number.jl" begin
     @test is_palindrome(121) == true
     @test is_palindrome(-121) == false
     @test is_palindrome(10) == false

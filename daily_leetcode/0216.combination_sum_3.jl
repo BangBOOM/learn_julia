@@ -20,7 +20,7 @@ function combination_sum(k::Int, n::Int)::Vector{Vector{Int}}
 end
 
 
-@testset "216.combination_sum_3.jl" begin
+@testset "0216.combination_sum_3.jl" begin
     @test combination_sum(3,7) == [[1,2,4]]
     @test combination_sum(3,9) == [[1,2,6],[1,3,5],[2,3,4]]
     @test combination_sum(4,1) == []

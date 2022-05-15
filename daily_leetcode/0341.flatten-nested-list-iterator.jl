@@ -9,7 +9,7 @@ function flatten_vector(x::Vector{Any})::Vector{Any}
     reverse!(res)
 end
 
-@testset "341.flatten-nested-list-iterator.jl" begin
+@testset "0341.flatten-nested-list-iterator.jl" begin
     @test flatten_vector([[1,1],2,[1,1]]) == [1,1,2,1,1]
     @test flatten_vector([1,2,[3,[4,[5,[6,7,8]]]]]) == [1,2,3,4,5,6,7,8]
 end

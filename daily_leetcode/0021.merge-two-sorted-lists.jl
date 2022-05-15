@@ -51,7 +51,7 @@ function merge_two_lists(
     return next(fake_head)
 end
 
-@testset "21.merge-two-sorted-lists.jl" begin
+@testset "0021.merge-two-sorted-lists.jl" begin
     list1 = ListNode{Int}([1, 2, 4])
     list2 = ListNode{Int}([1, 3, 4])
     expected = ListNode{Int}([1, 1, 2, 3, 4, 4])

@@ -13,7 +13,7 @@ function remove_duplicates1!(nums::Vector{Int})::Int
 end
 
 
-@testset "26.remove-duplicates-from-sorted-array.jl" begin
+@testset "0026.remove-duplicates-from-sorted-array.jl" begin
     nums1 = [1, 1, 2]
     @test remove_duplicates1!(nums1) == 2 && nums1[1: 2] == [1, 2]
     nums2 = [0, 0, 1, 1, 1, 2, 2, 3, 3, 4]
