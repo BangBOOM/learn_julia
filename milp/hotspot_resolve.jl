@@ -55,7 +55,7 @@ function milp_solver(vm_count::Int, p_violate::Float64)
     @variable(model, y[1:vm_count], Bin)
     @variable(model, s, lower_bound = 0.0)
     @constraint(model, [i in 1:vm_count], x[i] + y[i] <= 1)
-    @constraint(model, sum(x) + sum(y) == transpose(1:vm_count) * kvm)
+    @constraint(model, sum(x .+ y) == transpose(1:vm_count) * kvm)
     @constraint(model, sum(y) == transpose(gamma) * kvm)
     @constraint(model, [i in 1:vm_count], s >= x[i] * ur[i])
     @constraint(model, [i in 1:vm_count], max_ur - s >= y[i] * (max_ur) - ur[i])
@@ -63,8 +63,11 @@ function milp_solver(vm_count::Int, p_violate::Float64)
     @objective(model, Max, sum((x .+ y) .* mem))
 
     optimize!(model)
+
+    println(value.(x))
+    println(value.(y))
 end
 
 
-
+# milp_solver(50, 0.02)
 
