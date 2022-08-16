@@ -40,7 +40,7 @@ function milp_solver(vm_count::Int, p_violate::Float64)
         push!(gr_frame, [i, i, 0])
     end
 
-    gamma = [last(gr_frame[gr_frame.n.==i, 2]) for i in 1:vm_count]
+    gamma = [first(gr_frame[gr_frame.n.==i, 2]) for i in 1:vm_count]
 
     uc = rand(Float64, vm_count) * 30 .+ 5
     ur = rand(Float64, vm_count) .* rand(Float64, vm_count)
@@ -50,13 +50,13 @@ function milp_solver(vm_count::Int, p_violate::Float64)
     cap = 1500
 
     model = Model(HiGHS.Optimizer)
-    @variable(model, kvm[1:vm_count], Int)
+    @variable(model, kvm[1:vm_count], Bin)
     @variable(model, x[1:vm_count], Bin)
     @variable(model, y[1:vm_count], Bin)
     @variable(model, s, lower_bound = 0.0)
     @constraint(model, [i in 1:vm_count], x[i] + y[i] <= 1)
-    @constraint(model, sum(x .+ y) == transpose(1:vm_count) * kvm)
-    @constraint(model, sum(y) == transpose(gamma) * kvm)
+    @constraint(model, sum(x .+ y) == x(1:vm_count)' * kvm)
+    @constraint(model, sum(y) == gamma' * kvm)
     @constraint(model, [i in 1:vm_count], s >= x[i] * ur[i])
     @constraint(model, [i in 1:vm_count], max_ur - s >= y[i] * (max_ur) - ur[i])
     @constraint(model, sum((x .+ y) .* uc + y .* ur) <= cap)
