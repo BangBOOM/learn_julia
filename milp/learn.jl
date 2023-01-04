@@ -1,20 +1,19 @@
 using JuMP, GLPK
 
 m = Model(GLPK.Optimizer)
-A = [-1 1 3
-    1 3 -7]
+A = [ -1 1 3 1 3 -7]
 
 b = [-5; 10]
 
-c = [1; 2; 5;]
+c = [1; 2; 5]
 
 @variable(m, x[1:3] >= 0)
 @constraint(m, bound, x[1] <= 10)
 
 @constraint(
-    m,
-    constraint[j in 1:2],
-    transpose(A[j, :]) * x <= b[j]
+	m,
+	constraint[j in 1:2],
+	transpose(A[j, :]) * x <= b[j]
 )
 
 @objective(m, Max, transpose(c) * x)
@@ -23,12 +22,12 @@ optimize!(m)
 
 println("Optimal Solutions:")
 for i in 1:3
-    println("x[$i] = ", value(x[i]))
+	println("x[$i] = ", value(x[i]))
 end
 
 println("Dual Variables:")
 for j in 1:2
-    println("dual[$j] = ", shadow_price(constraint[j]))
+	println("dual[$j] = ", shadow_price(constraint[j]))
 end
 
 # @variable(m, 0 <= x1 <= 10)
